@@ -28,32 +28,24 @@ public class RoupaPMG extends Peca {
                     this.quantidadeP--;
                     ok = true;
 
-                } else {
-                    if (tam == 'M') {
-                        if (this.quantidadeP <= 0) {
-                            System.out.println("Erro: Estoque insuficiente para tamanho M!");
-                        }
+                } else if (tam == 'M') {
                     this.quantidadeM--;
                     ok = true;
 
-                    } else {
-                        if (tam == 'G') {
-                            if (this.quantidadeP <= 0) {
-                                System.out.println("Erro: Estoque insuficiente para tamanho G!");
-                            }
-                        this.quantidadeG--;
-                        ok = true;
+                } else if (tam == 'G') {
+                    this.quantidadeG--;
+                    ok = true;
 
-                        } else {
-                            System.out.println("Op inválida. Escolha P, M ou G.");
-                        }
-                    }
+                } else {
+                    System.out.println("Op inválida. Escolha P, M ou G.");
                 }
             } while (!ok);
             setQuantidade(quantidadeP + quantidadeM + quantidadeG);
-        } catch (InputMismatchException e) {
+
+        } catch (
+                InputMismatchException e) {
             System.out.println("Entrada inválida! Por favor, insira um caractere válido.");
-        } 
+        }
     }
 
     public void reposicaoEstoque() {
@@ -82,8 +74,8 @@ public class RoupaPMG extends Peca {
     }
 
     @Override
-    public void mostrarEstoqueTamanhos(){
-        System.out.println(  "P: " + quantidadeP +
+    public void mostrarEstoqueTamanhos() {
+        System.out.println("P: " + quantidadeP +
                 " | M: " + quantidadeM +
                 " | G: " + quantidadeG);
     }
