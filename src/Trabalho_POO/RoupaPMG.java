@@ -3,17 +3,24 @@ package Trabalho_POO;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class RoupaPMG extends Peca {
+public class RoupaPMG implements Item {
     private int quantidadeP;
     private int quantidadeM;
     private int quantidadeG;
+    private int quantidade;  
+    private int getEstoqueMinimo() {
+        return 5;  
+    }
 
-    public RoupaPMG(String descricao, int quantidadeP, int quantidadeM, int quantidadeG,
-                    int estoqueMinimo, int estoqueMaximo) {
-        super(descricao, (quantidadeP + quantidadeM + quantidadeG), estoqueMinimo, estoqueMaximo);
+    public RoupaPMG(String descricao, int quantidadeP, int quantidadeM, int quantidadeG, int estoqueMinimo, int estoqueMaximo) {
         this.quantidadeP = quantidadeP;
         this.quantidadeM = quantidadeM;
         this.quantidadeG = quantidadeG;
+        this.quantidade = quantidadeP + quantidadeM + quantidadeG;
+    }
+
+    private int getEstoqueMaximo() {
+        return 10; 
     }
 
     public void venda() {
@@ -23,37 +30,41 @@ public class RoupaPMG extends Peca {
 
             do {
                 System.out.println("Qual o tamanho? (P/M/G)");
-                char tam = kb.next().toUpperCase().charAt(0);
+                String input = kb.next();
+                if (input.length() == 0) {
+                    System.out.println("Entrada inválida. Escolha P, M ou G.");
+                    continue;
+                }
+                char tam = input.toUpperCase().charAt(0);
                 if (tam == 'P') {
-                    this.quantidadeP--;
-                    ok = true;
-
-                } else {
-                    if (tam == 'M') {
-                        if (this.quantidadeP <= 0) {
-                            System.out.println("Erro: Estoque insuficiente para tamanho M!");
-                        }
-                    this.quantidadeM--;
-                    ok = true;
-
-                    } else {
-                        if (tam == 'G') {
-                            if (this.quantidadeP <= 0) {
-                                System.out.println("Erro: Estoque insuficiente para tamanho G!");
-                            }
-                        this.quantidadeG--;
+                    if (quantidadeP > 0) {
+                        quantidadeP--;
                         ok = true;
-
-                        } else {
-                            System.out.println("Op inválida. Escolha P, M ou G.");
-                        }
+                    } else {
+                        System.out.println("Erro: Estoque insuficiente para tamanho P!");
                     }
+                } else if (tam == 'M') {
+                    if (quantidadeM > 0) {
+                        quantidadeM--;
+                        ok = true;
+                    } else {
+                        System.out.println("Erro: Estoque insuficiente para tamanho M!");
+                    }
+                } else if (tam == 'G') {
+                    if (quantidadeG > 0) {
+                        quantidadeG--;
+                        ok = true;
+                    } else {
+                        System.out.println("Erro: Estoque insuficiente para tamanho G!");
+                    }
+                } else {
+                    System.out.println("Op inválida. Escolha P, M ou G.");
                 }
             } while (!ok);
             setQuantidade(quantidadeP + quantidadeM + quantidadeG);
-        } catch (InputMismatchException e) {
+        } catch (InputMismatchException | StringIndexOutOfBoundsException e) {
             System.out.println("Entrada inválida! Por favor, insira um caractere válido.");
-        } 
+        }
     }
 
     public void reposicaoEstoque() {
@@ -81,10 +92,24 @@ public class RoupaPMG extends Peca {
         return quantidadeG;
     }
 
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
     @Override
-    public void mostrarEstoqueTamanhos(){
-        System.out.println(  "P: " + quantidadeP +
-                " | M: " + quantidadeM +
-                " | G: " + quantidadeG);
+    public String getDescricao() {
+        return "RoupaPMG";  
+    }
+
+    @Override
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    
+    public void mostrarEstoqueTamanhos() {
+        System.out.println("   Estoque P: " + quantidadeP);
+        System.out.println("   Estoque M: " + quantidadeM);
+        System.out.println("   Estoque G: " + quantidadeG);
     }
 }
