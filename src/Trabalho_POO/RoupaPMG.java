@@ -96,12 +96,10 @@ public class RoupaPMG implements Item {
         this.quantidade = quantidade;
     }
 
-    @Override
     public String getDescricao() {
         return "RoupaPMG";  
     }
 
-    @Override
     public int getQuantidade() {
         return quantidade;
     }
