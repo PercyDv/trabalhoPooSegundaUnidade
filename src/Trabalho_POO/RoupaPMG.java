@@ -7,7 +7,7 @@ public class RoupaPMG implements Item {
     private int quantidadeP;
     private int quantidadeM;
     private int quantidadeG;
-    private int estoqueMinimo;  
+    private int estoqueMinimo;
     private int estoqueMaximo;
 
     public RoupaPMG(String descricao, int quantidadeP, int quantidadeM, int quantidadeG, int estoqueMinimo, int estoqueMaximo) {
@@ -31,35 +31,19 @@ public class RoupaPMG implements Item {
                 tam = resp.toUpperCase().charAt(0);
 
                 if (resp.length() > 0) {
-                tam = resp.toUpperCase().charAt(0);
-                
+                    tam = resp.toUpperCase().charAt(0);
+
                     if (tam == 'P') {
-                        if (quantidadeP > 0) {
-                            quantidadeP--;
-                            ok = true;
-                        } else {
-                            System.out.println("Erro: Estoque insuficiente para tamanho P!");
-                        }
+                        quantidadeP--;
+                        ok = true;
+                    } else if (tam == 'M') {
+                        quantidadeM--;
+                        ok = true;
+                    } else if (tam == 'G') {
+                        quantidadeG--;
+                        ok = true;
                     } else {
-                        if (tam == 'M') {
-                            if (quantidadeM > 0) {
-                                quantidadeM--;
-                                ok = true;
-                            } else {
-                                System.out.println("Erro: Estoque insuficiente para tamanho M!");
-                            }
-                        } else {
-                            if (tam == 'G') {
-                                if (quantidadeG > 0) {
-                                    quantidadeG--;
-                                    ok = true;
-                                } else {
-                                    System.out.println("Erro: Estoque insuficiente para tamanho G!");
-                                }
-                            } else {
-                                System.out.println("Opção inválida. Escolha P, M ou G.");
-                            }
-                        }
+                        System.out.println("Opção inválida. Escolha P, M ou G.");
                     }
                 }
             } while (!ok);
@@ -93,19 +77,18 @@ public class RoupaPMG implements Item {
     }
 
     public String getDescricao() {
-        return "RoupaPMG";  
+        return "RoupaPMG";
     }
 
     public int getEstoqueMinimo() {
-        return estoqueMinimo;  
+        return estoqueMinimo;
     }
 
-    
     public int getEstoqueMaximo() {
-        return estoqueMaximo; 
+        return estoqueMaximo;
     }
 
-    public int getQuantidade(){
+    public int getQuantidade() {
         return quantidadeP + quantidadeM + quantidadeG;
     }
 
