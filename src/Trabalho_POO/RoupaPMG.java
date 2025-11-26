@@ -7,21 +7,15 @@ public class RoupaPMG implements Item {
     private int quantidadeP;
     private int quantidadeM;
     private int quantidadeG;
-    private int quantidade;  
+    private int estoqueMinimo;  
+    private int estoqueMaximo;
 
     public RoupaPMG(String descricao, int quantidadeP, int quantidadeM, int quantidadeG, int estoqueMinimo, int estoqueMaximo) {
         this.quantidadeP = quantidadeP;
         this.quantidadeM = quantidadeM;
         this.quantidadeG = quantidadeG;
-        this.quantidade = quantidadeP + quantidadeM + quantidadeG;
-    }
-
-    private int getEstoqueMinimo() {
-        return 5;  
-    }
-
-    private int getEstoqueMaximo() {
-        return 10; 
+        this.estoqueMinimo = estoqueMinimo;
+        this.estoqueMaximo = estoqueMaximo;
     }
 
     public void venda() {
@@ -69,7 +63,6 @@ public class RoupaPMG implements Item {
                     }
                 }
             } while (!ok);
-            setQuantidade(quantidadeP + quantidadeM + quantidadeG);
         } catch (InputMismatchException | StringIndexOutOfBoundsException e) {
             System.out.println("Entrada inválida! Por favor, insira um caractere válido.");
         }
@@ -85,7 +78,6 @@ public class RoupaPMG implements Item {
         if (quantidadeG < getEstoqueMinimo()) {
             quantidadeG = getEstoqueMaximo();
         }
-        setQuantidade(quantidadeP + quantidadeM + quantidadeG);
     }
 
     public int getQuantidadeP() {
@@ -100,18 +92,24 @@ public class RoupaPMG implements Item {
         return quantidadeG;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
     public String getDescricao() {
         return "RoupaPMG";  
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public int getEstoqueMinimo() {
+        return estoqueMinimo;  
     }
 
+    
+    public int getEstoqueMaximo() {
+        return estoqueMaximo; 
+    }
+
+    public int getQuantidade(){
+        return quantidadeP + quantidadeM + quantidadeG;
+    }
+
+    @Override
     public void mostrarEstoqueTamanhos() {
         System.out.println("   Estoque P: " + quantidadeP);
         System.out.println("   Estoque M: " + quantidadeM);
